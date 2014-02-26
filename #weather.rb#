@@ -1,0 +1,33 @@
+require 'sinatra'
+require 'socket'
+
+class Weather
+  
+  def initialize()
+    @city = 'Lancaster'
+    @zip = '17603'
+  end
+  
+  def getCity()
+    return @city
+  end
+  
+  def getZip()
+    return @zip
+  end
+  
+  def FullWeather()
+    data = Net::
+
+
+
+
+
+
+
+
+
+
+
+
+end
