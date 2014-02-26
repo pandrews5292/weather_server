@@ -2,7 +2,7 @@ require 'sinatra'
 require 'socket'
 
 class Weather
-  
+  #Class that will return weather info
   def initialize()
     @city = 'Lancaster'
     @zip = '17603'
