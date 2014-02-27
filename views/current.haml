@@ -1,0 +1,23 @@
+%table
+	%thead
+		%tr
+			%th{:colspan => "2"} Weather Information
+	%tbody
+		%tr
+			%td City
+			%td=@city
+		%tr
+			%td Zip
+			%td=@zip
+		%tr
+			%td Temp
+			%td="#{@temp} F"
+		%tr
+			%td Wind
+			%td="#{@wind} mph"
+		%tr
+			%td Humidity
+			%td="#{@humidity} %"
+		%tr
+			%td Currently
+			%td=@outside
