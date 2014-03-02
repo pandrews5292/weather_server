@@ -1,20 +1,31 @@
 require 'net/http'
 require 'rubygems'
 require 'json'
+require 'xmlsimple'
+require 'area'
+
 
 class Weather
   #Weather information
   def initialize()
-    @city = 'Lancaster'
     @zip = '17603'
-  end
-  
-  def getCity()
-    return @city
   end
   
   def getZip()
     return @zip
+  end
+
+  def setZip(zip)
+    @zip = zip
+  end
+    
+  def getArea()
+    area = @zip.to_region
+    if area == NIL
+      return "bad_area"
+    else
+      return area
+    end
   end
   
   def getTemp()
@@ -48,22 +59,16 @@ class Weather
   end
 
   def fullWeather()
-    data = Net::HTTP.get('api.openweathermap.org','/data/2.5/weather?q=Lancaster')
+    area = self.getArea
+    data = Net::HTTP.get('api.openweathermap.org','/data/2.5/weather?q='+area)
     return data
   end
 
-  def displayAll()
-    print "City: ",self.getCity,"\n"
-    print "Zip Code: ",self.getZip,"\n"
-    print "Temperature: ", self.getTemp," degrees F\n"
-    print "Humidity: ", self.getHumidity,"%\n"
-    print "Wind: ",self.getWind," mph\n"
-    print "Looks like: ",self.getDescription,"\n"
-  end
 end
 
-#w = Weather.new()
-#w.displayAll
+w = Weather.new
+puts w.getArea
+
 
 
 

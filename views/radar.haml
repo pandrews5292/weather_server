@@ -11,41 +11,12 @@
 		%li{:class => "#{@network_tab}"}
 			%a{:href => "/network_traffic"}Network Traffic
 
-%table.table
-	%thead{:style => "padding-bottom: 10px;"}
-		%tr
-			%th{:colspan => "2"} Weather Information
-	%tbody
-		%tr
-			%td Area
-			%td=@area
-		%tr
-			%td Zip
-			%td=@zip
-		%tr
-			%td Temp
-			%td="#{@temp} F"
-		%tr
-			%td Wind
-			%td="#{@wind} mph"
-		%tr
-			%td Humidity
-			%td="#{@humidity} %"
-		%tr
-			%td Currently
-			%td=@outside
 
-%form{:action => "/current", :method => "post"}
-	%div.col-lg-6
-		%div.input-group
-			%span.input-group-btn
-				%button.btn.btn-default{:type => "submit"} Search
-			%input.form-control{:type => "text", :placeholder => "#{@zip}", :name => "zipcode"}
+
 
 
 %script{:src =>"https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"}
 
 %script{:src => "js/bootstrap.min.js"}
-
-
+	
 

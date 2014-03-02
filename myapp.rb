@@ -12,3 +12,7 @@ get '/' do
   redirect '/current'
 end
 
+get '/*' do 
+	redirect '/current'
+end
+

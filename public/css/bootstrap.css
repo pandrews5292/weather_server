@@ -213,6 +213,7 @@ th {
   }
   thead {
     display: table-header-group;
+    padding-bottom: 10px;
   }
   tr,
   img {
@@ -278,6 +279,7 @@ body {
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
+  padding-top: 70px; 
 }
 input,
 button,
