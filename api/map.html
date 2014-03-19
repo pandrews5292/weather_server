@@ -1,47 +1,72 @@
 <html>
 <head>
 <title>Weather Map</title>
+	<style type="text/css">
+           #map {
+            width: 100%;
+            height: 99%;
+            border: 1px solid black;
+        }
+    	</style>
 
-<script src="http://openlayers.org/api/OpenLayers.js"></script>
-<script src="http://openweathermap.org/js/OWM.OpenLayers.1.3.4.js"></script>
-<script src="lib/proj4js-combined.js"></script> 
 </head>
 <body onload="init()">
 <div id="basicMap"></div>
 </body>
 
+<script src="http://openlayers.org/api/OpenLayers.js"></script>
+<script src="http://openweathermap.org/js/OWM.OpenLayers.1.3.4.js"></script>
 
 <script type="text/javascript">
-
+var map;
 function init() 
 {
     //Center of map Lat=y, Lon=x
     var lat = 40.04;
     var lon = -76.3; 
-
+    
     ///////////////////////////////////////////////////////////////////////
     //This is supposed to transform the coordinates to mercator coordinates
     //var source = new Proj4js.Proj('EPSG:4326');
-    //var dest = new Proj4js.Proj('EPSG:3785');
+    //var dest = new Proj4js.Proj('EPSG:41001');
 
     //var p = new Proj4js.Point(lon,lat); 
     //Proj4js.transform(source, dest, p);
 	
     // p.x , p.y ==> to get x and y coordinates
-    //////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    
+    //lonlat.transform(
+	//	new OpenLayers.Projection("EPSG:4326"),
+	//	new OpenLayers.Projection("EPSG:41001") 
+	//);
+
+
 
     var lonlat = new OpenLayers.LonLat(lon,lat);
-    var map = new OpenLayers.Map("basicMap");
+
+    map = new OpenLayers.Map("basicMap");
 
     // Create OSM overlays
     var mapnik = new OpenLayers.Layer.OSM();
+
     // Stations
-    var stations = new OpenLayers.Layer.Vector.OWMStations("Stations");
+    //var stations = new OpenLayers.Layer.Vector.OWMStations("Stations");
+
+
     // Current weather
     var city = new OpenLayers.Layer.Vector.OWMWeather("Weather");
+	
+    var lPrecipitation = new OpenLayers.Layer.OWMComposite('PR', "Precipitation forecasts",  {opacity: 0.7} );
+
     //Addind maps
-    map.addLayers([mapnik,city]);
+    map.addLayers([mapnik,city,lPrecipitation]);
+    map.addControl(new OpenLayers.Control.LayerSwitcher()); 
     map.setCenter( lonlat,1 );
+ 
+    
+    //map.addLayer(lPrecipitation);
+    
 }
 </script>
 </html>
