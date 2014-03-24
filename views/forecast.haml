@@ -1,3 +1,4 @@
+!!!
 %link{:href =>"/css/bootstrap.css", :rel => "stylesheet"}
 
 %nav{:class => "navbar navbar-default navbar-fixed-top", :role => "navigation"}
@@ -8,15 +9,65 @@
 			%a{:href => "/forecast"}Forecast
 		%li{:class => "#{@radar_tab}"}
 			%a{:href => "/radar"}Radar
-		%li{:class => "#{@network_tab}"}
-			%a{:href => "/network_traffic"}Network Traffic
+
+
+%div.btn-group{:style => "margin-left:20px;"}
+	%button.btn.btn-default.dropdown-toggle{:type => "button", "data-toggle" => "dropdown"}
+		=@today
+		%span.caret
+	%ul.dropdown-menu
+		%li
+			%a{:href => "/forecast/sunday"} Sunday
+			%a{:href => "/forecast/monday"} Monday
+			%a{:href => "/forecast/tuesday"} Tuesday
+			%a{:href => "/forecast/wednesday"} Wednesday
+			%a{:href => "/forecast/thursday"} Thursday
+			%a{:href => "/forecast/friday"} Friday
+			%a{:href => "/forecast/saturday"} Saturday
+			
+%div{:style => "clear:both; padding-top:20px"}
+	%table.table
+		%thead{:style => "padding-bottom: 10px;"}
+			%tr
+				%th{:colspan => "2"} 
+					Weather Information -
+					%b=@today
+		%tbody
+			%tr
+				%td Area
+				%td=@area
+			%tr
+				%td Zip
+				%td=@zip
+			%tr
+				%td Max Temp
+				%td="#{@maxTemp} F"
+			%tr
+				%td Min Temp
+				%td="#{@minTemp} F"
+			%tr
+				%td Wind
+				%td="#{@wind} mph"
+			%tr
+				%td Humidity
+				%td="#{@humidity} %"
+			%tr
+				%td Currently
+				%td=@outside
 
 
 
+%form{:action => "/forecast", :method => "post"}
+	%div.col-lg-6
+		%div.input-group
+			%span.input-group-btn
+				%button.btn.btn-default{:type => "submit"} Search by zip code
+			%input.form-control{:type => "text", :placeholder => "#{@zip}", :name => "zipcode"}
 
+%script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"}
+%script{:src => "/js/bootstrap.min.js"}
 
-%script{:src =>"https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"}
+		
 
-%script{:src => "js/bootstrap.min.js"}
 	
 

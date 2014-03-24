@@ -32,8 +32,8 @@ class Weather
     data = fullWeather
     parsed = JSON.parse(data)
     t =  parsed["main"]["temp"]
-    f = (9/5)*(t-273) + 32
-    return f.round(1)
+    f = (9.to_f/5.to_f)*(t-273) + 32
+    return f.to_i
   end
     
   def getHumidity()
@@ -65,9 +65,6 @@ class Weather
   end
 
 end
-
-w = Weather.new
-puts w.getArea
 
 
 

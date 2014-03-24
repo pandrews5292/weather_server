@@ -1,6 +1,6 @@
 %link{:href =>"/css/bootstrap.css", :rel => "stylesheet"}
 
-%nav{:class => "navbar navbar-default navbar-fixed-top", :role => "navigation"}
+%nav{:class => "navbar navbar-default navbar-fixed-top", :role => "navigation", :style => "margin-bottom: 0px; padding-top: 0px;"}
 	%ul{:class => "nav navbar-nav"}
 		%li{:class => "#{@current_tab}"}
 			%a{:href => "/current"}Current
@@ -8,15 +8,61 @@
 			%a{:href => "/forecast"}Forecast
 		%li{:class => "#{@radar_tab}"}
 			%a{:href => "/radar"}Radar
-		%li{:class => "#{@network_tab}"}
-			%a{:href => "/network_traffic"}Network Traffic
+
+%script{:src => "http://openlayers.org/api/OpenLayers.js"}
+%script{:src => "http://openweathermap.org/js/OWM.OpenLayers.1.3.4.js"}
 
 
 
+%body{:onload => "init()"}
+%div#basicMap
 
+
+:javascript 
+
+	function init() 
+	{
+		var lat = 40.04;
+		var lon = -76.3; 
+
+		var lonlat = new OpenLayers.LonLat(lon,lat);
+		lonlat.transform(
+			new OpenLayers.Projection("EPSG:4326"),
+			new OpenLayers.Projection("EPSG:900913") 
+		);
+
+		var map = new OpenLayers.Map("basicMap");
+
+		var mapnik = new OpenLayers.Layer.OSM();
+
+		var layer_cloud = new OpenLayers.Layer.XYZ(
+			"clouds",
+			"http://${s}.tile.openweathermap.org/map/clouds/${z}/${x}/${y}.png",
+			{
+				isBaseLayer: false,
+				opacity: 0.3,
+				sphericalMercator: true
+			}
+		);
+
+		var layer_precipitation = new OpenLayers.Layer.XYZ(
+			"precipitation",
+			"http://${s}.tile.openweathermap.org/map/rain/${z}/${x}/${y}.png",
+			{
+				isBaseLayer: false,
+				opacity: 0.6,
+				sphericalMercator: true
+			}
+		);
+
+		map.addLayers([mapnik, layer_precipitation, layer_cloud]);
+		map.addControl(new OpenLayers.Control.LayerSwitcher()); 
+		map.setCenter(lonlat, 8);
+	}
 
 %script{:src =>"https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"}
-
 %script{:src => "js/bootstrap.min.js"}
+
+
 	
 
